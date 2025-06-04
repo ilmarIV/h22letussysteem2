@@ -28,44 +28,58 @@ function Vote() {
     return;
   }
 
-  fetch('http://localhost:8000/getVotes.php')
+  fetch('http://localhost:8000/getLatestResult.php')
     .then(res => res.json())
-    .then(voters => {
-      const existingVoter = voters.find(
-        v => v.ees_perenimi.toLowerCase() === name.trim().toLowerCase()
-      );
+    .then(latest => {
+      if (latest.lõppenud === 'jah') {
+        setMessage("Hääletuse aeg on lõppenud.");
+        setTimeout(() => navigate('/'), 2000);
+        return;
+      }
 
-      const endpoint = existingVoter
-        ? 'http://localhost:8000/updateVote.php'
-        : 'http://localhost:8000/createVote.php';
-
-      const payload = {
-        ees_perenimi: name.trim(),
-        otsus: valik
-      };
-
-      fetch(endpoint, {
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      })
+      fetch('http://localhost:8000/getVotes.php')
         .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            setMessage("Hääl salvestatud edukalt.");
-            setTimeout(() => navigate('/'), 1500); // 👈 wait 1.5s before navigating
-          } else {
-            setMessage("Tekkis viga: " + (data.error || 'Tundmatu viga'));
-          }
+        .then(voters => {
+          const existingVoter = voters.find(
+            v => v.ees_perenimi.toLowerCase() === name.trim().toLowerCase()
+          );
+
+          const endpoint = existingVoter
+            ? 'http://localhost:8000/updateVote.php'
+            : 'http://localhost:8000/createVote.php';
+
+          const payload = {
+            ees_perenimi: name.trim(),
+            otsus: valik
+          };
+
+          fetch(endpoint, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success) {
+                setMessage("Hääl salvestatud edukalt.");
+                setTimeout(() => navigate('/'), 1500);
+              } else {
+                setMessage("Tekkis viga: " + (data.error || 'Tundmatu viga'));
+              }
+            })
+            .catch(err => {
+              console.error("Vote error:", err);
+              setMessage("Võrguviga.");
+            });
         })
         .catch(err => {
-          console.error("Vote error:", err);
-          setMessage("Võrguviga.");
+          console.error('Error fetching voters:', err);
+          setMessage("Võrguviga valijate kontrollimisel.");
         });
     })
     .catch(err => {
-      console.error('Error fetching voters:', err);
-      setMessage("Võrguviga valijate kontrollimisel.");
+      console.error('Error checking vote status:', err);
+      setMessage("Viga hääletuse oleku kontrollimisel.");
     });
 };
   

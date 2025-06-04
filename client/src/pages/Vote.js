@@ -10,7 +10,6 @@ function Vote() {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  // Load current voting question
   useEffect(() => {
     fetch('http://localhost:8000/getLatestResult.php')
       .then(response => response.json())
@@ -24,7 +23,6 @@ function Vote() {
       });
   }, []);
 
-  // Load all voters
   useEffect(() => {
     fetch('http://localhost:8000/getVotes.php')
       .then(res => res.json())

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Countdown from '../components/Countdown';
 
 function Vote() {
   const [result, setResult] = useState(null);
@@ -33,7 +34,7 @@ function Vote() {
     .then(latest => {
       if (latest.lõppenud === 'jah') {
         setMessage("Hääletuse aeg on lõppenud.");
-        setTimeout(() => navigate('/'), 2000);
+        setTimeout(() => navigate('/'), 1500);
         return;
       }
 
@@ -90,8 +91,7 @@ function Vote() {
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
       <div className='container max-w-md bg-white shadow-md rounded-md p-6'>
-
-        
+        <Countdown redirectOnEnd={true} />
         <p className="text-center text-2xl font-bold text-blue-700 mb-4">{result.tulemuse_nimi}</p>
         <label className="block text-teal-800 font-semibold mb-1" htmlFor="question">
         Sisesta oma nimi

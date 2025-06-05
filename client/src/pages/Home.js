@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Countdown from '../components/Countdown';
 
 function Home() {
   const [result, setResult] = useState(null);
@@ -35,6 +36,7 @@ function Home() {
         >
         {result.lõppenud === 'ei' ? 'Hääletus on avatud' : 'Hääletus on lõppenud'}
       </p>
+      <Countdown refreshOnEnd={true} />
         <div className='max-w-xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6 text-gray-800'>
           <p className="text-center text-2xl font-bold text-blue-700 mb-4"><strong>{result.tulemuse_nimi}</strong>
           </p>

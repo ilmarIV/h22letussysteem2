@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Countdown from '../components/Countdown';
+import API_BASE from '../config'
 
 function Vote() {
   const [result, setResult] = useState(null);
@@ -11,7 +12,7 @@ function Vote() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8000/getLatestResult.php')
+    fetch(`${API_BASE}/getLatestResult.php`)
       .then(response => response.json())
       .then(data => {
         setResult(data);
@@ -29,7 +30,7 @@ function Vote() {
     return;
   }
 
-  fetch('http://localhost:8000/getLatestResult.php')
+  fetch(`${API_BASE}/getLatestResult.php`)
     .then(res => res.json())
     .then(latest => {
       if (latest.lõppenud === 'jah') {
@@ -38,7 +39,7 @@ function Vote() {
         return;
       }
 
-      fetch('http://localhost:8000/getVotes.php')
+      fetch(`${API_BASE}/getVotes.php`)
         .then(res => res.json())
         .then(voters => {
           const existingVoter = voters.find(
@@ -46,8 +47,8 @@ function Vote() {
           );
 
           const endpoint = existingVoter
-            ? 'http://localhost:8000/updateVote.php'
-            : 'http://localhost:8000/createVote.php';
+            ? `${API_BASE}/updateVote.php`
+            : `${API_BASE}/createVote.php`;
 
           const payload = {
             ees_perenimi: name.trim(),

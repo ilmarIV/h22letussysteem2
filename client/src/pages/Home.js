@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Countdown from '../components/Countdown';
+import API_BASE from '../config'
 
 function Home() {
   const [result, setResult] = useState(null);
@@ -8,7 +9,7 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8000/getLatestResult.php')
+    fetch(`${API_BASE}/getLatestResult.php`)
       .then(response => response.json())
       .then(data => {
         setResult(data);

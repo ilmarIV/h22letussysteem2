@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_BASE from '../config'
 
 function Admin() {
   const [resultName, setResultName] = useState('');
@@ -12,7 +13,7 @@ function Admin() {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/createResult.php', {
+      const response = await fetch(`${API_BASE}/createResult.php`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

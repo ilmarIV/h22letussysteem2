@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_BASE from '../config'
 
 function Log() {
   const [logs, setLogs] = useState([]);
@@ -7,7 +8,7 @@ function Log() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8000/getLogs.php')
+    fetch(`${API_BASE}/getLogs.php`)
       .then(response => response.json())
       .then(data => {
         setLogs(data);

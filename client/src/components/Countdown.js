@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_BASE from '../config'
 
 function Countdown({ redirectOnEnd = false, refreshOnEnd = false }) {
   const [secondsLeft, setSecondsLeft] = useState(null);
@@ -7,7 +8,7 @@ function Countdown({ redirectOnEnd = false, refreshOnEnd = false }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8000/getLatestResult.php')
+    fetch(`${API_BASE}/getLatestResult.php`)
       .then(res => res.json())
       .then(data => {
         if (!data.h_alguse_aeg) return;
@@ -42,7 +43,7 @@ function Countdown({ redirectOnEnd = false, refreshOnEnd = false }) {
           clearInterval(interval);
           setHasEnded(true);
 
-          fetch('http://localhost:8000/updateEndVoting.php', {
+          fetch(`${API_BASE}/updateEndVoting.php`, {
             method: 'POST'
           }).catch(err => console.error("Error ending vote:", err));
 

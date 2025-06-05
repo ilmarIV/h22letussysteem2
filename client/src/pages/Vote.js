@@ -92,7 +92,9 @@ function Vote() {
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
       <div className='container max-w-md bg-white shadow-md rounded-md p-6'>
-        <Countdown redirectOnEnd={true} />
+        <div className='flex justify-center my-6 '>
+          <Countdown redirectOnEnd={true} />
+        </div>
         <p className="text-center text-2xl font-bold text-blue-700 mb-4">{result.tulemuse_nimi}</p>
         <label className="block text-teal-800 font-semibold mb-1" htmlFor="question">
         Sisesta oma nimi
@@ -102,7 +104,7 @@ function Vote() {
           placeholder="Sinu nimi"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded resize-none mb-20"
+          className="w-full px-3 py-2 border border-gray-300 rounded resize-none mb-8"
 
         />
 

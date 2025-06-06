@@ -24,7 +24,7 @@ function Log() {
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-      <div className='container max-w-md bg-white shadow-md rounded-md p-6'>
+      <div className='container max-w-3xl bg-white shadow-md rounded-md p-6'>
         <button onClick={() => navigate('/admin')}
             className='mb-6 w-full bg-gray-700 border border-green-800 px-4 py-2 text-white text-xl py-3 rounded-md shadow hover:bg-teal-700 transition'> 
           Tagasi Admin lehele

@@ -1,3 +1,3 @@
-const API_BASE = 'http://localhost:8000';
+const API_BASE = `https://vso24saega.ita.voco.ee/Haaletussusteem/api`;
 
 export default API_BASE;
